@@ -1,0 +1,166 @@
+\documentclass[twoside,a4paper]{article}
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+% useful packages.
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{layout}
+\usepackage{float}
+\usepackage{mathtools}
+% some common command
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Jovi Wong (3180104829)}
+\chead{Numerical Analysis homework \#9}
+\rhead{2020/6/2}
+
+
+\section*{I. Simpson's rule}
+
+\subsection*{a. Show Simpson's rule on $[-1,1]$ by given equation} 
+Assume $p_3(x)=a_3x^3+a_2x^2+a_1x+a_0$ , then follow the interpolation conditions
+\[ \left \{ \begin{lgathered}
+a_3+a_2+a_1+a_0=y(1) \\
+a_0=y(0) \\
+a_1=y'(0) \\
+-a_3+a_2-a_1+a_0=y(-1)
+\end{lgathered} \right. \]
+We can get the four coefficients
+\[ \left \{ \begin{lgathered}
+a_3=\frac{y(1)-y(-1)-2y'(0)}{2} \\
+a_2=\frac{y(1)+y(-1)-2y(0)}{2} \\
+a_1=y'(0) \\
+a_0=y(0)
+\end{lgathered} \right. \]
+namely, $p_3(x)=\frac{y(1)-y(-1)-2y'(0)}{2}x^3+\frac{y(1)+y(-1)-2y(0)}{2}x^2+y'(0)x+y(0)$
+\begin{gather}
+I^{S}(y)=\int_{-1}^{1}p_3(x) \dif x=\frac{y(1)+y(-1)+4y(0)}{3}
+\end{gather}
+\subsection*{b. Derive $E^S(y)$}
+According to theorem 3.27, we get
+\begin{gather}
+y(x)-p_3(x)=\frac{y^{(4)}(\xi(x))}{24}x^2(x+1)(x-1)
+\end{gather}
+Apply integral on $[-1,1]$ to each side,
+\begin{gather}
+E^S(y)=I(y)-I^S(y)=\int_{-1}^{1}y(x)-p_3(x) \dif x\\
+=\int_{-1}^1 \frac{y^{(4)}(\xi(x))}{24}x^2(x+1)(x-1) \dif x \\
+\end{gather}
+We can find $\zeta \in [-1,1]$ such that 
+\begin{gather}
+E^S(y)=\frac{y^{(4)}(\zeta)}{24} \int_{-1}^1 x^2(x+1)(x-1) \dif x =- \frac{y^{(4)}(\zeta)}{90}
+\end{gather}
+by theorem 0.56
+\subsection*{c. Using (a), (b) and a change of variable}
+Define $h=\frac{b-a}{n}$ where $n$ is even and $x_k=a+kh$ where $h=0,1,\cdots,n$. Firstly, We can consider the first subinterval $[x_0,x_2]$ with (a) conclusion
+\begin{gather}
+I_1^{S}(y)=\frac{h}{3}(y(x_0)+4y(x_1)+y(x_2)) = \int_{x_0}^{x_2} f_1(x) \dif x
+\end{gather}
+where $f_1$ is obtained by conditions $f_1(x_0)=y(x_0)$ and $f_1(x_1)=y(x_1)$ and $f'_1(x_1)=y'(x_1)$ and $f_1(x_2) = y(x_2)$ , besides, the index $1$ stands for the $x_1$. Similar with (b), we can get
+\begin{gather}
+E^S_1(y)=\frac{y^{(4)}(\zeta)}{24} \int_{x_0}^{x_2} (x-x_1)^2(x-x_0)(x-x_2) \dif x =- \frac{h^5}{90}y^{(4)}(\zeta_1)
+\end{gather} 
+Secondly, sum up all the subintervals
+\begin{gather}
+I^S_n(y)=\sum_{i=0}^{n/2-1}I_{2i+1}^S(y)=\sum_{i=0}^{n/2-1}\frac{h}{3}[y(x_{2i})+4y(x_{2i+1})+y(x_{2i+2}))] 
+\end{gather}
+Accodingly, the remainder is 
+\begin{gather}
+E^S_n(y)=\sum_{i=0}^{n/2-1} E_{2i+1}^S(y) =-\frac{h^5}{90} \sum_{i=0}^{n/2-1}y^{(4)}(\zeta_{2i+1})=-\frac{h^5}{90}\cdot \frac{n}{2}y^{(4)}(\zeta)
+\end{gather}
+by using theorem 0.42. Notice that $b-a=nh$ , therefore, 
+\begin{gather}
+E^S_n(y)=-\frac{(b-a)}{180}h^4y^{(4)}(\zeta)
+\end{gather}
+\section*{II. Estimate the number of subintervals required}
+\subsection*{a. by the composite trapezoidal rule}
+Define $f(x)=e^{-x^2}$ , then $f''(x)=2(2x^2-1)e^{-x^2} \in (-2,\frac{2}{e})$ for $x \in (0,1)$. According to theorem 7.14, there $\exists \xi \in (0,1)$ such that
+\begin{gather}
+E^T_n(f)=-\frac{h^2}{12}f''(\xi)
+\end{gather}
+where $h=\frac{b-a}{n}=\frac{1}{n}$, so that $|E^T_n(f)|=|\frac{f''(\xi)}{12n^2}| <\frac{1}{6n^2}$. When the absolute error $|E^T_n(f)| \leq 0.5\times10^{-6}$, we can get $n$ must be greater than $578$.
+\subsection*{b. by the composite Simpson' rule}
+We can deduce that $f^{(4)}(x)=4e^{-x^2}(4x^4-12x^2+3)$ which reaches the minimum on $x=\frac{5-\sqrt{10}}{2}$ and hits the top on $x=0$. In other word, $f^{(4)}(x) \in [f^{(4)}(\frac{5-\sqrt{10}}{2}),f^{(4)}(0)]=[-7.36,12]$ so that $|f^{(4)}(x)|\leq 12$. As a result, the absolute error is 
+\begin{gather}
+|E^S_n(f)|=\frac{1}{180n^4}f^{(4)}(\xi) \leq \frac{1}{15n^4}
+\end{gather}
+When the absolute error $|E^S_n(f)| \leq 0.5\times10^{-6}$, we can get $n$ must be greater than $20$.
+\section*{III. Guass-Laguerre quadrature formula}
+
+\subsection*{a. Construct a polynomial orthogonal to $\mathbb{P}_1$}
+Define $p(x)= kx+m$, then we can get
+\begin{gather}
+\int_0^{\infty}p(t)\pi_2(t)\rho(t) \dif t=k(2a+b+6)+m(a+b+2)
+\end{gather}
+by using formula $\int_0^{\infty} t^me^{-t}= m!$. The condition requires $\int_0^{\infty}p(t)\pi_2(t)\rho(t) \dif t=0$ for $\forall k,m \in \mathbb{R}$ so that
+\[ \left 
+\{ \begin{lgathered}
+2a+b+6=0 \\
+a+b+2=0
+\end{lgathered} \right. 
+\]
+Consequently, we obtain the coefficients 
+\[ \left 
+\{ \begin{lgathered}
+a=-4\\
+b=2
+\end{lgathered} \right. 
+\]
+Namely, the polynomial $\pi_2(x)=x^2-4x+2$ orthogonal to $\mathbb{P}_1$.
+\subsection*{b. Derive two-point Guass-Laguerre quadrature formula and express $E_2(f)$}
+According to corollary 7.22, we can get
+\begin{gather}
+\omega_1=\int_{0}^{\infty} \frac{v_n(t)}{(t-t_1)v'_n(t_1)} e^{-t} \dif t=\int_{0}^{\infty} \frac{t-t_2}{t_1-t_2}e^{-t} \dif t=\frac{1-t_2}{t_1-t_2}\\
+\omega_2=\int_{0}^{\infty} \frac{v_n(t)}{(t-t_2)v'_n(t_2)} e^{-t} \dif t=\int_{0}^{\infty} \frac{t-t_1}{t_2-t_1}e^{-t} \dif t=\frac{1-t_1}{t_2-t_1}\\
+\end{gather}
+Since the function $\pi_2(t)$ has zeros at $t_1=2-\sqrt{2}$ and $t_2=2+\sqrt{2}$.
+Consequently, the two-point Gruass-Laguerre quadrature formula is 
+\begin{gather}
+I^G(f)=\frac{2+\sqrt{2}}{4}f(2-\sqrt{2})+\frac{2-\sqrt{2}}{4}f(2+\sqrt{2})
+\end{gather}
+As for the reminder, we can utilize theorem 7.28
+\begin{gather}
+E_2^G(f)=\frac{f^{(4)}(\tau)}{24} \int_{0}^{\infty} e^{-t}v_n^2(t)\dif t=\frac{f^{(4)}(\tau)}{6}
+\end{gather}
+where $\tau \in (0,\infty)$.
+\subsection*{c. Apply formula in (b) to approximate $I$ and estimate error}
+When $f(t)=\frac{1}{1+t}$, we can get
+\[ \left \{ \begin{lgathered}
+f(2-\sqrt{2})=\frac{3+\sqrt{2}}{7}\\
+f(2+\sqrt{2})=\frac{3-\sqrt{2}}{7}\\
+f^{(4)}(\tau)=\frac{24}{(1+\tau)^5}
+\end{lgathered} \right. \]
+Next, take them into formula (18) and (19)
+\begin{gather}
+I=\frac{4}{7}+\frac{4}{(1+\tau)^5}
+\end{gather}
+Using the exact value $I=0.596347361\cdots$, we know that $\tau \approx 1.76$.
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
