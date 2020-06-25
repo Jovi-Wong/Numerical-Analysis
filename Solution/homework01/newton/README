@@ -1,0 +1,23 @@
+/*Purpose:
+ This program is using Newton's method to find where the root is.
+
+ *Precondition:
+  f is 2-order continuous itself and We can know the derivation of f somehow.
+  x0 is close enough to the root.
+
+ *INPUT:
+ f is the subjuct of the study.
+ df is the derivative of f.
+ a is the start point of initial interval.
+ b is the end point of initial interval.
+ M is the greatest steps the loop is allowed to run.
+ x0 is the first point of the series to approach the root
+ eps decides how close between f(x) and 0, when program is permitted to exit.
+ 
+ *OUTPUT:
+ x is the closest point to root we can get during the finite steps.
+ k denotes how many times the loop runs.
+
+ *Postcondition:
+ |f(x)| < eps or k = M
+*/

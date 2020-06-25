@@ -1,0 +1,131 @@
+\documentclass[twoside,a4paper,12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+% useful packages.
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{layout}
+
+% some common command
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Jovi Wong(3180104829)}
+\chead{Numerical Analysis homework \#1}
+\rhead{2020/3/18}
+
+\section*{I.Width of Interval During Bisecting Process}
+
+\subsection*{I-a.Width at \emph{n}th step} 
+We can Define h$ _n$ as the width at the \emph{n}th step.
+The width of interval will be reduced to half of the original each step according to the definition of bisection. So h$ _n$ = 
+$\frac{2}{2^n}=\frac{1}{2^{n-1}}$
+
+\subsection*{I-b.Maximun possible distance} 
+If the program exits the loop at the \emph{n}th step, then the maximum distance between the root and the midpoint of interval is h$_n$ = 
+$\frac{1}{2^n}$.
+\section*{II.Prove the Inequation about Step and Relative Error}
+We can define the midpoint of the interval as X$_n$, and the root as X, and the actual relative error as $\eta$.Then, suppose X$_n$ lays in [a$_n$, b$_n$] after n times of bisection. It is obvious that the width of [a$_n$, b$_n$] is $\frac{b_0-a_0}{2^n}$ according to the first question. Notice that 
+\[
+\eta = \frac{X_n-X}{X} \le \frac{|b_n-a_n|}{2X} = \frac{b_0-a_0}{2^{n+1}X} \le \frac{b_0-a_0}{2^{n+1}a_0}
+\]
+Because $\eta \le \epsilon$ must be satisfied, it implies that
+\[
+\frac{b_0-a_0}{2^{n+1}a_0} \le \epsilon
+\] 
+Then, apply logarithm to both sides, we can get 
+\[
+n \ge \frac{\log {(b_0-a_0)}-\log{\epsilon}-\log{a_0}}{\log {2}}-1
+\]
+as required.
+
+\section*{III.Perform Four Iterations of Newton's Method}
+\begin{tabular}{|c|c|c|}
+\hline
+Step & x & f(x)\\
+\hline
+0 & -1 & -3\\
+\hline
+1 & -0.8125 & -0.46582\\
+\hline
+2 & -0.770804 & -0.0201379\\
+\hline
+3 & -768832 & -4.437084$\times 10^{-5}$\\
+\hline
+4 & -0.768828 & -2.07412$\times 10^{-10}$\\
+\hline
+\end{tabular}
+\section*{IV.A Variation of Newton Method}
+I think we can't find out constant C and s such that $e_{n+1}=Ce_n^s$. For example, take $f(x)=x^2$ , iterating from $x_0=1$. Since $x_1 = \frac{1}{2}$ , $x_2=\frac{3}{8}$, $x_3=\frac{39}{128}$ and the root $r=0$, $e_0=1$, $e_1 = \frac{1}{2}$ , $e_2=\frac{3}{8}$, $e_3=\frac{39}{128}$ . 
+\[
+e_1=Ce_0^s \Longrightarrow C=\frac{1}{2}
+\]
+\[
+e_2=Ce_1^s \Longrightarrow s=\log_2\frac{4}{3}
+\]
+But, 
+\[
+e_3 \neq \frac{1}{2}e_2^{\log_2{\frac{4}{3}}}
+\]
+Hence, I find a counterexample.
+
+\section*{V.Whether the Iteration Is Convergent or Not}
+Define $f(x) = \arctan{x}$, then transform iterating formula into $x_{n+1} = f(x_n)$. It is easy to prove that $x>\arctan{x}$ when $x>0$, in another word, $0<x_{n+1} < x_n $ when $x_1>0$. So sequence \{x$_n$\} is monotonic and bounded. Using theorem 2.11, the sequence above is convergent. The situation on $x_1<0$ is similar to $x_1>0$ and sequence \{$x_n$\} is constant when $x_1=0$. Therefore, the sequence is convergent on ($-\frac{\pi}{2}$, $\frac{\pi}{2}$).Hence proved.
+
+\section*{VI.Convergent Value of A Sequence}
+We can conclude the iterating formula that is $x_{n+1} = \frac{1}{p+x_n}$ where $x_1 = \frac{1}{p}$ and $p > 1$. Define $g(x) = \frac{1}{p+x}$ where $p > 1$, so $x_{n+1}= g(x_n)$. Funtion $g$ is a contractive mapping on (0,$\infty$), because 
+\[
+|g(x)-g(y)|=|\frac{1}{x+p}-\frac{1}{y+p}| = |\frac{x-y}{(x+p)(y+p)}| \le \frac{|x-y|}{p^2} = \lambda |x-y| 
+\]
+where $\lambda = \frac{1}{p^2} < 1$ and $\forall x,y \in (0,\infty)$. Then according to theorem 2.29, there $\exists \alpha$ as a fixed point of $g(x)$ that is
+\[ 
+\alpha=\frac{\sqrt{p^2+4}-p}{2}
+\]
+Furthermore, $|x_n-\alpha| \le \frac{\lambda^n}{1-\lambda}|x_1-x_0|$. It implies that ${x_n}$ is a series converging to $\alpha$, in another word, the value of
+\begin{equation}
+ x= \frac{1}{p+\frac{1}{p+\frac{1}{p+...}}}=\lim_{n\to\infty} x_n=\alpha=\frac{\sqrt{p^2+4}-p}{2}
+\end{equation}
+Hence we get the answer.
+
+
+\section*{VII.What happens in II if $a_0 < 0 < b_0$}
+We must transform the inequation as 
+\[
+\eta = \frac{X_n-X}{X} \le \frac{b_n-a_n}{2X} = \frac{b_n-a_n}{2^{n+1}X} \le \frac{b_0-a_0}{2^{n+1}|X|}
+\]
+since we don't know the relation between $|a_0|$ and $|X|$. If $\eta \le \epsilon$ is always true, then we can draw a conclusion
+\[
+\eta \le \frac{b_0-1_0}{2^{n+1}|X|} \le \epsilon
+\]
+Therefore obtaining
+\[
+n \ge \frac{\log{b_0-a_0}-\log{\epsilon}-\log{|X|}}{\log{2}}-1
+\]
+It is not an appropriate estimateion for the number of steps, because it can be a huge number when the actual value is near the origin. 
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

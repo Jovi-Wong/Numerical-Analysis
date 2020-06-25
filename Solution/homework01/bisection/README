@@ -1,0 +1,26 @@
+/*Purpose:
+ This program is using bisection method to find out where is the root of certain functions
+ 
+ *Precondition:
+ f is continuous in [a,b]
+ f(a)*f(b)<0
+
+ *INPUT:
+ f is the subject of study.
+ a is the start point of initial interval.
+ b is the end point of initial interval.
+ M is the greatest steps the loop is allowed to run.
+ delta decides how narrow the interval is, when program is permitted to exit.
+ eps decides how close between f(x) and 0, when program is permitted to exit.
+
+ *OUTPUT:
+ c is the midpoint of the final interval.
+ h is the length of the final interval.
+ k is the times the program runs.
+
+ *Postcondition:
+ |f(c)| < eps or |h|<delta or k=M
+
+*/
+
+

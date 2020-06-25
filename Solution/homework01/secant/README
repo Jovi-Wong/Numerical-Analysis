@@ -1,0 +1,23 @@
+/*Purpose:
+ This program is using secant method to find where the root is.
+
+ *Precondition:
+  f is 2-order continuous itself.
+  x0 and x1 are close to the root of f enough.
+
+ *INPUT:
+ f is the subjuct of the study.
+ x0 and x1 are ponits near the root which start the recursion.
+ M is the greatest steps the loop is allowed to run.
+ delta decides how close between x0 and x1 when the program is permitted to exit.
+ eps decides how close between f(x) and 0, when program is permitted to exit.
+ 
+ *OUTPUT:
+ Xn and Xn-1 denote a interval [Xn, Xn-1] which contains root.
+ k denotes how many times the loop runs.
+
+ *Postcondition:
+ |f(Xn)| < eps or |Xn - Xn-1| < delta or k = M
+*/
+
+#

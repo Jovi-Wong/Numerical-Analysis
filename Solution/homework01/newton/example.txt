@@ -1,0 +1,9 @@
+When M = 20 and epsilon = 1e-06
+k is 4
+x is -0.768828
+When M = 5 and epsilon = 0.1
+k is 2
+x is -0.770804
+When M = 30 and epsilon = 0.07
+k is 2
+x is -0.770804

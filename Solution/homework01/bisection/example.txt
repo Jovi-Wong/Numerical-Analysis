@@ -1,0 +1,36 @@
+Input function 1
+ When epsilon = 0.0003 and delta 0.0001 and M 20
+0.860371 and 0.000383495 and 13
+Input function 1
+ When epsilon = 0.0003 and delta 0.0001 and M 20
+0.641113 and 0.000976562 and 11
+Input function 1
+ When epsilon = 0.0003 and delta 0.0001 and M 20
+1.82935 and 0.000488281 and 13
+Input function 1
+ When epsilon = 0.0003 and delta 0.0001 and M 20
+0.117889 and 6.10352e-05 and 17
+Input function 0x7ffd943a21c0
+When epsilon = 0.1 and delta 0.1 and M 10
+0.883573 and 0.19635 and 4
+Input function 0x7ffd943a21e0
+When epsilon = 0.1 and delta 0.1 and M 10
+0.625 and 0.25 and 3
+Input function 0x7ffd943a2200
+When epsilon = 0.1 and delta 0.1 and M 10
+1.8125 and 0.125 and 5
+Input function 0x7ffd943a2220
+When epsilon = 0.1 and delta 0.1 and M 10
+0.09375 and 0.0625 and 7
+Input function 
+When epsilon = 0.01 and delta = 0.01 and M = 10
+0.859029 and 0.0490874 and 6
+Input function 
+When epsilon = 0.01 and delta = 0.01 and M = 10
+0.640625 and 0.03125 and 6
+Input function 
+When epsilon = 0.01 and delta = 0.01 and M = 10
+1.82812 and 0.03125 and 7
+Input function 
+When epsilon = 0.01 and delta = 0.01 and M = 10
+0.121094 and 0.0078125 and 10

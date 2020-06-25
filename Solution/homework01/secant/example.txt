@@ -1,0 +1,15 @@
+3.01011 and 3.06035 and 7
+1.30614 and 1.30632 and 13
+-0.188273 and -0.18869 and 6
+When M = 10 and delta = 0.001 and epsilon = 0.001
+3.01011 and 3.06035 and 7
+When M = 10 and delta = 0.001 and epsilon = 0.001
+1.24713 and 1.29505 and 11
+When M = 10 and delta = 0.001 and epsilon = 0.001
+-0.188273 and -0.18869 and 6
+When M = 10 and delta = 0.00012 and epsilon = 0.00034
+Xn1 = 3.06035 and Xn = 3.09139 and k = 8
+When M = 10 and delta = 0.00012 and epsilon = 0.00034
+Xn1 = 1.24713 and Xn = 1.29505 and k = 11
+When M = 10 and delta = 0.00012 and epsilon = 0.00034
+Xn1 = -0.188273 and Xn = -0.18869 and k = 6
