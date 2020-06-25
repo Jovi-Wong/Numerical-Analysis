@@ -1,0 +1,262 @@
+\documentclass[twoside,a4paper,12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+% useful packages.
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{layout}
+\usepackage{amsmath} 
+
+% some common command
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Jovi Wong(3180104829)}
+\chead{Numerical Analysis homework \#2}
+\rhead{2020/3/28}
+
+\section*{I.Linear Interpolation of $f(x)=\frac{1}{x}$ at $x_0=1$ and $x_1=2$}
+\subsection*{a.Determine $\xi(x)$ explicitly} 
+Using Lagrange Formula, we get
+\[
+p_{1}(x)=f_0\frac{x-x_0}{x_0-x_1}+f_1\frac{x-x_1}{x_1-x_0}=\frac{3-x}{2}
+\]
+Because $f''(x)=\frac{2}{x^3}$, it is obvious that $f''(\xi(x))=\frac{2}{\xi^3(x)}$, then 
+\[
+f(x)-p_1(x)=\frac{1}{x}-\frac{3-x}{2}=\frac{(x-1)(x-2)}{2x}=\frac{(x-1)(x-2)}{\xi^3(x)}
+\]
+Hence, we know that $\xi(x)=\sqrt[3]{2x}$.
+\subsection*{b.Find max$\xi(x)$, min$\xi(x)$ and max$f''(\xi(x))$} 
+For $x\in[1,2]$, we can conclude
+\[
+max\xi(x)=\xi(2)=\sqrt[3]{4}
+\]
+\[
+min\xi(x)=\xi(1)=\sqrt[3]{2}
+\]
+From above, notice $f''(\xi(x))=\frac{2}{\xi^3(x)}$, so
+\[
+maxf''(\xi(x))=max\frac{1}{2x}=\frac{1}{2}
+\]
+
+\section*{II.Find $p\in\mathbb{P}_{2n}^{+}$ Satisfies Distinct Points on $\mathbb{R}$}
+We can modify the Lagrange Formula into
+\[
+p(x)=\sum_{k=0}^{n}f_{k}l_{k}
+\]
+where the 
+\[
+l_k=\prod_{i=0;i \neq k}^{n}\frac{(x-x_i)^2}{(x_k-x_i)^2}
+\]
+and the degree of $p \leq {2n}$, which implies $p(x) \in \mathbb{P}$. It is obvious that $l_k \geq 0$, since $(x-x_i)^2\geq 0$ and $(x_k-x_i)^2 \geq 0$. Additionally, $f_k \geq 0$ given by the condition, therefore, $f_kl_k\geq 0$ so that $p(x) \geq 0$ has proved. 
+
+\section*{III.Consider $f(x)=e^{x}$}
+\subsection*{a.Prove Induction}
+If $n=0$, namely, $f[t]=f(t)=e^t=\frac{(e-1)^n}{n!}e^t$, it is true obviously.\\
+If this conclusion is true when $n=s-1$, then we can know $\forall t\in \mathbb{R}$
+\[
+f[t,t+1,、\cdots,t+s-1]=\frac{(e-1)^{s-1}}{(s-1)!}e^{t}
+\]
+Next, we can subsititute $t$ with $t+1$, so we can get
+\[
+f[t+1,t+2,、\cdots,t+s]=\frac{(e-1)^{s-1}}{(s-1)!}e^{t+1}
+\]
+Using therorem 3.14, we can draw the conlcusion
+\[
+f[t,t+1,、\cdots,t+s]=\frac{\frac{(e-1)^{s-1}}{(s-1)!}e^{t+1}-\frac{(e-1)^{s-1}}{(s-1)!}e^{t}}{s}=\frac{(e-1)^s}{s!}e^t
+\]
+It implies when $n=s$ the formula is also true. Hence proved.
+\subsection*{b.Determine $\xi$ From the Above Two Equation}
+From above, take $t=0$ into the equation,
+\[
+f[0,1,\cdots,n]=\frac{(e-1)^n}{n!}
+\]
+When $x \in (0,n)$, $\frac{e^x}{n!} \in (\frac{1}{n!},\frac{e^n}{n!})$. Since $e^x$ is continous function, we know $\exists \xi \in (0,n)$ such that 
+\[
+\frac{e^{\xi}}{n!}= \frac{(e-1)^n}{n!}
+\]
+by Intermediate Value Theorem. Therefore,
+\[
+x=n \ln{(e-1)} > \frac{n}{2}
+\]
+which means that $\xi$ always lays on the right of the midpoint $x=\frac{n}{2}$ .
+\section*{IV.Cosider $f(0)=5$, $f(1)=3$, $f(3)=5$, $f(4)=12$}
+\subsection*{a.Obtain $p_3(f;x)$ Using Newton Formula}
+According to the formula,
+\[
+f[0]=5
+\]
+\[
+f[0,1]=\frac{f_0}{x_0-x_1}+\frac{f_1}{x_1-x_0}=-2
+\]
+\[
+f[0,1,3]=\frac{f_0}{(x_0-x_1)(x_0-x_2)}+\frac{f_1}{(x_1-x_0)(x_1-x_2)}+\frac{f_2}{(x_3-x_0)(x_3-x_2)}=\frac{5}{6}
+\]
+\[
+f[0,1,3,4]=\frac{f_0}{(x_0-x_1)(x_0-x_2)(x_0-x_3)}+\frac{f_1}{(x_1-x_0)(x_1-x_2)(x_1-x_3)}
+\]
+\[
++\frac{f_2}{(x_2-x_0)(x_2-x_1)(x_2-x_3)}+\frac{f_3}{(x_3-x_0)(x_3-x_1)(x_3-x_2)}=\frac{1}{4}
+\]
+Easily, we can get
+\[
+p_3(x)=a_0+a_1(x-x_0)+a_2(x-x_0)(x-x_1)+a_3(x-x_0)(x-x_1)(x-x_2)
+\]
+\[
+=\frac{x^3}{4}-\frac{9}{4}x+5
+\]
+\subsection*{b.Find an Appropriate Value For the location $x_{min}$ of the Minimum}
+When $f'(x)=\frac{3}{4}x^2-\frac{9}{4}=0$, we know $x=\sqrt{3}$. It implies 
+\[
+x_{min}=\sqrt{3} ,minf(x)=5-\frac{3}{2}\sqrt{3}
+\]
+\section*{V.Consider $f(x)=x^{7}$}
+\subsection*{a.Compute $f[0,1,1,1,2,2]$}
+\begin{tabular}{c|cccccc}
+x&0&1&1&1&2&2\\
+\hline
+$f(x)$&0&1&1&1 &128& 128\\
+
+\end{tabular}
+\\
+\\
+Using therorem 3.14, then we can get the chart recursively\\ 
+\\
+\begin{tabular}{c|rrrrrr}
+0 & 0\\
+1 & 1 & 1\\
+1 & 1 &7 & 6\\
+1&1&7&21&15\\
+2&128&127&120&99&42&\\
+2&128&448&321&201&102&30\\
+\end{tabular}
+\\
+\\
+which shows that $f[0,1,1,1,2,2] = 30$ .
+\subsection*{b.Divided Difference of $f^{(5)}$ Evaluated at $\xi\in(0,2)$. Determine $\xi$}
+According to corollary 3.17,
+\[
+f[0,1,1,1,2,x]=\frac{1}{5!}f^{(5)}(\xi(x))
+\]
+when $x=2$, namely, $\frac{1}{5!}\cdot2520\cdot\xi^2=30$, so $\xi=\frac{\sqrt{70}}{7}$ .
+\section*{VI.$f$ is defined on [0,3] with conditions}
+\subsection*{a.Estimate $f(2)$ Using Hermite Interpolation}
+\begin{tabular}{c|rrrrr}
+x & 0 & 1 & 1 & 3 & 3\\
+\hline
+$f(x)$& 1 & 2 & 2&0&0\\
+\end{tabular}
+\\
+\\
+\begin{tabular}{c|rrrrr}
+0& 1\\
+1& 2& 1\\
+1& 2& -1& -2\\
+3& 0& -1& 0& $\frac{2}{3}$\\
+3& 0& 0& $\frac{1}{2}$ &$\frac{1}{4}$ &-$\frac{5}{36}$\\
+\end{tabular}
+\\
+Therefore, $p(x)=1+x-2x(x-1)+\frac{2}{3}x(x-1)^2-\frac{5}{36}x(x-1)^2(x-3)$, in particular, $p(2)=\frac{11}{18}$ .
+\subsection*{b.Estimate the Maximum Possible Error}
+According to therorem 3.27, in particular, when $x=2$ ,
+\[
+\epsilon \leq \frac{M}{60}
+\]
+In general,
+\[
+f(x)-p(x)=\frac{f^{(5)}(\xi)}{5!}x(x-1)^{2}(x-3)^2=\frac{f^{(5)}(\xi)}{5!}(x^5-8x^4+22x^3-24x^2+9x)
+\]
+Take
+\[
+h(x)=x^5-8x^4+22x^3-24x^2+9x
+\]
+then,
+\[
+h'(x)=(x-1)(x-3)(5x^2-12x+3)
+\]
+After trivial calculation, the maximum of possible error  
+\[
+\epsilon=\max_{x\in(0,3)}{|f(x)-g(x)|}\leq\frac{M}{120}h(\frac{6+\sqrt{21}}{5})=\frac{204+14\sqrt{21}}{15625}M
+\]
+\section*{VII.Prove Two Equation about Forward and Backward Difference}
+When $k=1$ , then
+\[
+\bigtriangleup f(x)=f(x+h)-f(x)=hf[x_0,x_1]
+\]
+satisfies the conclusion.
+If the conclusion is true, when $k=s-1$, namely,
+\[
+\bigtriangleup^{s-1}f(x)=(s-1)!h^{s-1}f[x_0,\cdots,x_{s-1}]
+\]
+\[
+\bigtriangleup^{s-1}f(x+h)=(s-1)!h^{s-1}f[x_1,\cdots,x_{s}]
+\]
+Then according to the definition,
+\[
+\bigtriangleup^{s}f(x)=\bigtriangleup^{s-1}f(x+h)-\bigtriangleup^{s-1}f(x)
+\]
+\[
+=(s-1)!h^{s-1}f[x_1,\cdots,x_{s}]-(s-1)!h^{s-1}f[x_0,\cdots,x_{s-1}]
+\]
+\[
+=(s-1)!h^{s-1}f[x_1,\cdots,x_{s}]-(s-1)!h^{s-1}f[x_0,\cdots,x_{s-1}]
+\]
+\[
+=(s-1)!h^{s-1}(f[x_1,\cdots,x_{s}]-f[x_0,\cdots,x_{s-1}])
+\]
+According to therorem 3.14,
+\[
+f[x_1,\cdots,x_{s}]-f[x_0,\cdots,x_{s-1}]=khf[x_0,\cdots,x_k]
+\]
+So take it into the other formula,
+\[
+\bigtriangleup^{s}f(x) = s!h^{s}f[x_0,\cdots,x_{s}])
+\]
+The situation of backward difference is similar to the above, hence proved.
+
+\section*{VIII.Prove equation and Expand It}
+\subsection*{a.prove equation}
+When $n=0$, $LHS=\frac{\partial}{\partial{x_0}}f[x_0]=f'(x_0)$ and $RHS = f[x_0,x_0]=f'(x_0)$, hence the equation holds.\\
+When $n=k$, suppose $\frac{\partial}{\partial{x_0}}=f[x_0,x_0,\cdots,x_k]$ is true,\\
+Then, when $n=k+1$,
+\begin{gather}
+LHS=\frac{\partial}{\partial{x_0}}\frac{f[x_1,x_2,\cdots,x_{k+1}]-f[x_0,x_1,\cdots,x_k]}{x_{k+1}-x_0} \\
+=\frac{f[x_1,x_2,\cdots,x_{k+1}]}{(x_{k+1}-x_0)^2}-\frac{f[x_0,x_0,\cdots,x_k](x_{k+1}-x_0)+f[x_1,x_2,\cdots,x_k]}{(x_{k+1}-x_0)^2}\\
+=\frac{f[x_1,x_2,\cdots,x_{k+1}]-f[x_0,x_1,\cdots,x_k]}{(x_{k+1}-x_0)^2}-\frac{f[x_0,x_0,\cdots,x_k]}{x_{k+1}-x_0}\\
+=\frac{f[x_0,x_1,\cdots,x_{k+1}]-f[x_0,x_0,\cdots,x_k]}{x_{k+1}-x_0}\\
+=f[x_0,x_0,x_1,\cdots,x_{k+1}]\\
+=RHS
+\end{gather}
+Hence proved.
+\subsubsection*{b.expand it}
+The proof of the following equation is simialr to the above content that just exchange $x_0$ with $x_i$ , then we can get  
+\begin{gather}
+\frac{\partial}{\partial{x_i}}f[x_0,x_1,\cdots,x_i,\cdots,x_{n}]=f[x_i,x_0,x_1,\cdots,\cdots,x_i,\cdots,x_n]
+\end{gather}
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
